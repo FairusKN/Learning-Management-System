@@ -20,7 +20,22 @@ class UserSeeder extends Seeder
             'username' => 'fairus',
             'password' => 'fairus',
         ]);
+
+        $testStudentUser = User::factory()->create([
+            'name' => 'Test',
+            'username' => 'test',
+            'password' => 'test',
+        ]);
+
+        $testTeacherUser = User::factory()->create([
+            'name' => 'Testt',
+            'username' => 'testt',
+            'password' => 'testt',
+        ]);
+
         $testUser->addRole('admin');
+        $testStudentUser->addRole('student');
+        $testTeacherUser->addRole('teacher');
 
     }
 }

@@ -8,6 +8,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    if (Auth::user()->hasRole('admin')) {
+        return redirect()->route('filament.admin.pages.dashboard');
+    }
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

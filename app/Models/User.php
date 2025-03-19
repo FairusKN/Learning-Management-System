@@ -17,7 +17,6 @@ class User extends Authenticatable implements LaratrustUser
     protected $fillable = ['name', 'username', 'password'];
     protected $hidden = ['password'];
     
-
     public function classes()
     {
         return $this->belongsToMany(Classroom::class, 'class_student', 'user_id', 'class_id');

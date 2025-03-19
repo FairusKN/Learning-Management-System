@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->login(null) //make /admin gone
             ->middleware([
                 'auth',
+                'role:admin'
             ]) //make breeze login
             ->colors([
                 'primary' => Color::Amber,

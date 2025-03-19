@@ -20,8 +20,12 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $classes = Classroom::all();
-        return view('auth.register', compact('classes'));
+        if (Auth::check() && Auth::user()->hasRole('admin')) {
+            $classes = Classroom::all();
+            return view('auth.register', compact('classes'));
+        }else{
+            abort(403, 'unauthorize access');
+        }
     }
 
     /**
