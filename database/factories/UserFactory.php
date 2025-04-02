@@ -27,7 +27,6 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'username' => str_replace(' ', '_', fake()->name()),
             'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
         ];
     }
 
