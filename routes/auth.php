@@ -21,7 +21,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::prefix('admin')->group(function () {
-        //Route::get('/register-user', ::class)->name('admin.register-user');
-    });
+    
 });
