@@ -7,7 +7,7 @@
 
     @auth
         @if(Auth::user()->hasRole('student'))
-            <x-student.dashboard>
+            <x-student.dashboard :tasks='$tasks'>
                 {{'student'}}
             </x-student-dashboard>
         @elseif(Auth::user()->hasRole('teacher'))

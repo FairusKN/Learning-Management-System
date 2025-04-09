@@ -5,12 +5,13 @@
         <div class="flex items-center mb-4">
             <p class="text-white text-xl font-semibold">Assignment</p>
         </div>
-    
+
+        @props(['tasks'])
         <!-- Grid Layout -->
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
-            <div class="h-56 rounded bg-gray-300"></div>
-            <div class="h-56 rounded bg-gray-300"></div>
-            <div class="h-56 rounded bg-gray-300"></div>    
+            @foreach ($tasks as $task)
+                <div class="h-56 rounded bg-gray-300">{{$task->title}}</div>
+            @endforeach
         </div>
     </div>
 

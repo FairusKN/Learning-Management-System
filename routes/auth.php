@@ -20,6 +20,3 @@ Route::middleware('auth')->group(function () {
          ->name('logout');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    
-});

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,11 @@ class TaskSubmissionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'task_id' => Task::factory(),
+            'student_id' => User::inRandomOrder()->first()->hasRole('student')->id ?? User::factory()->create()->addRole('student')->id,
+            'file_path' => 'submissions/' . fake()->uuid() . '.pdf',
+            'grade' => fake()->optional()->numberBetween(50,100),
+            'status'=> fake()->randomElement(['pending', 'lulus', 'remed'])
         ];
     }
 }

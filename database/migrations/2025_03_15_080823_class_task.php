@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // table with function one task to many
         Schema::create('class_task', function (Blueprint $table) {
             $table->id();
             $table->foreignId('class_id')->constrained('classrooms')->onDelete('cascade');

@@ -17,7 +17,7 @@ class ClassroomFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => 'XI - RPL 1',
         ];
     }
 }
