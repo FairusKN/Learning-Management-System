@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade');
+            $table->string('resource_path');
             $table->timestamps();
         });
     }

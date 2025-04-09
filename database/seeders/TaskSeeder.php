@@ -34,15 +34,6 @@ class TaskSeeder extends Seeder
                 ]);
             }
         }
-
-        foreach ($tasks as $task) {
-            DB::table('task_resource')->insert([
-                'task_id' => $task->id,
-                'file_path' => 'uploads/' . Str::uuid() . '.pdf',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        };
     }
 
     

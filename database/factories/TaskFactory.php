@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class TaskFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->paragraph(),
             'teacher_id' => User::inRandomOrder()->first()->hasRole('teacher')->id ?? User::factory()->create()->addRole('teacher')->id,
+            'resource_path' => 'uploads/' . Str::uuid() . '.pdf',
         ];
     }
 }
