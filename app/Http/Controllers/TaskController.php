@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function showTask(Request $request)
+    public function indexStudent(Request $request)
     {
         $tasks = Task::orderBy('created_at', 'desc')->limit(3)->get();
         $tasks_history = TaskSubmission::where('student_id', Auth::id())->limit(3)->get();

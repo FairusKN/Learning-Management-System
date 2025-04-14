@@ -42,7 +42,7 @@
             @foreach ($tasks_history as $history)
                 <div class="rounded shadow p-4 flex flex-col justify-between h-56 bg-slate-300">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-800">{{ $history->task->name }}</h2>
+                        <h2 class="text-2xl font-bold text-gray-800">{{ $history->task->title }}</h2>
                         <p class="text-sm text-gray-600 mt-1 line-clamp-4">{{ $history->task->description }}</p>
                     </div>
                     
@@ -50,7 +50,11 @@
                         <p><span class="font-semibold">Teacher:</span> {{ $task->teacher->name }}</p>
                         @if ($history->grade)
                             <span>Nilai : {{$history->grade}}</span>
-                            <span>Status : {{$history->status}} </span>
+                            @if ($history->grade >= 76)
+                                <span>Status : Remed</span>
+                            @else
+                                <span>Status : Lulus</span>
+                            @endif
                         @endif
                     </div>
                 </div>

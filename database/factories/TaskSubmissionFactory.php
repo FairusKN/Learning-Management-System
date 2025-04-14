@@ -22,8 +22,7 @@ class TaskSubmissionFactory extends Factory
             'task_id' => Task::factory(),
             'student_id' => User::inRandomOrder()->first()->hasRole('student')->id ?? User::factory()->create()->addRole('student')->id,
             'file_path' => 'submissions/' . fake()->uuid() . '.pdf',
-            'grade' => fake()->optional()->numberBetween(50,100),
-            'status'=> fake()->randomElement(['pending', 'lulus', 'remed'])
+            'grade' => fake()->numberBetween(50,100),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TaskSubmission;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -36,6 +37,9 @@ class UserSeeder extends Seeder
         $testUser->addRole('admin');
         $testStudentUser->addRole('student');
         $testTeacherUser->addRole('teacher');
+
+
+        TaskSubmission::factory(3)->for($testStudentUser, 'student')->create();
 
     }
 }
