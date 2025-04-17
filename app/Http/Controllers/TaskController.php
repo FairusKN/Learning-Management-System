@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
 use Auth;
 use App\Models\Task;
 use Illuminate\Support\Str;
@@ -10,9 +11,25 @@ use App\Models\TaskSubmission;
 
 class TaskController extends Controller
 {
+
+    //Student Stuff
+    
     public function indexStudent(Request $request)
     {
-        $tasks = Task::orderBy('created_at', 'desc')->limit(3)->get();
+        $user = Auth::user();
+        $classroom = $user->classes()->first();
+        $submittedTaskIds = $user->submissions()->pluck('task_id');
+        
+        if ($classroom) {
+            $tasks = $classroom->tasks()
+                ->whereNotIn('tasks.id', $submittedTaskIds)
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get();
+        } else {
+            $latestTasks = collect();
+        }
+
         $tasks_history = TaskSubmission::where('student_id', Auth::id())->limit(3)->get();
         return view('dashboard', compact('tasks', 'tasks_history'));
     }
@@ -52,6 +69,21 @@ class TaskController extends Controller
         ]);
 
         return redirect('/dashboard')->with("success", "File Uploaded.");
+    }
+
+    function showTask(Request $request)
+    {
+        $user = Auth::user();
+        $classroom = $user->classes()->first();
+        
+        if ($classroom) {
+            $tasks = $classroom->tasks()
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        $tasks_history = TaskSubmission::where('student_id', Auth::id())->latest()->get();
+        return view('students.assignment', compact('tasks', 'tasks_history'));
     }
 
 }

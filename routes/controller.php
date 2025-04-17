@@ -11,9 +11,14 @@ Route::middleware(['auth', 'verified', 'role:student'])->group( function () {
         ->name('tasksubmission');
     Route::post("/tasksubmissionupload/{task_id}", [TaskController::class, 'taskSubmissionUpload'])
         ->name("tasksubmission.upload");
+
+
+    Route::get('/assignment', [TaskController::class, 'showTask'])
+        ->name("assignmentStudent");
 });
 
 Route::middleware(['auth', 'verified', 'role:teacher'])->group( function () {
-    //
+    Route::get('/dashboard', [TaskController::class, ''])
+        ->name('dashboard');
 });
 ?>

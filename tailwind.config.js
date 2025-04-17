@@ -21,6 +21,18 @@ export default {
     plugins: [
         forms,
         require('flowbite/plugin'),
+        // require('tailwind-scrollbar-hide'),
+        // function({ addComponents }) {
+        //     addComponents({
+        //       '.no-scrollbar': {
+        //         '-ms-overflow-style': 'none',     
+        //         'scrollbar-width': 'none',        
+        //       },
+        //       '.no-scrollbar::-webkit-scrollbar': {
+        //         display: 'none'                   
+        //       }
+        //     })
+        //   }
     ],
 };
 

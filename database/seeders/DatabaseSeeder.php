@@ -14,14 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        for($i = 1; $i <=5; $i++){
-            Classroom::create([
-                'name' => 'XI - RPL ' . $i
-            ]);  
-        };
-
-
+        
         $this->call([
+            ClassroomSeeder::class,
             UserSeeder::class,
             LaratrustSeeder::class,
             TaskSeeder::class,

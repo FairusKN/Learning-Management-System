@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Models\Classroom;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -28,5 +30,13 @@ class UserFactory extends Factory
             'username' => str_replace(' ', '_', fake()->name()),
             'password' => static::$password ??= Hash::make('password'),
         ];
+    }
+    
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user){
+            $classroom = Classroom::inRandomOrder()->first();
+            $user->classes()->attach($classroom->id);
+        });
     }
 }

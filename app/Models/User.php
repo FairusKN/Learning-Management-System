@@ -29,7 +29,7 @@ class User extends Authenticatable implements LaratrustUser
 
     public function submissions()
     {
-        return $this->hasMany(TaskSubmission::class);
+        return $this->hasMany(TaskSubmission::class, 'student_id');
     }
 
     public function roles(): MorphToMany
