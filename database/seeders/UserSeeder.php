@@ -39,7 +39,8 @@ class UserSeeder extends Seeder
         $testTeacherUser->addRole('teacher');
 
 
-        TaskSubmission::factory(3)->for($testStudentUser, 'student')->create();
+        TaskSubmission::factory(2)->for($testStudentUser, 'student')->create();
+        TaskSubmission::factory(1)->for($testStudentUser, 'student')->create(["grade" => 30]);
 
     }
 }

@@ -57,7 +57,7 @@
                         
                         <div class="mt-4 text-sm text-gray-500">
                             <p><span class="font-semibold">Teacher:</span> {{ $task->teacher->name }}</p>
-                            @if ($history->grade)
+                            @if ($history->grade > 0)
                                 <span>Nilai : {{$history->grade}}</span>
                                 @if ($history->grade >= 76)
                                     <span>Status : Lulus</span>
