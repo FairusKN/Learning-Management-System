@@ -28,11 +28,23 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (Auth::user()->hasRole('admin')) {
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
             return redirect()->route('filament.admin.pages.dashboard');
         }
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // return redirect()->intended(route('dashboard', absolute: false));
+
+        if ($user->hasRole('teacher')) {
+            return redirect()->route('teacher.dashboard');
+        }
+    
+        if ($user->hasRole('student')) {
+            return redirect()->route('student.dashboard');
+        }
+    
+        abort(403); // No valid role
     }
 
     /**

@@ -13,7 +13,7 @@ Route::get('/login', function() {
 });
 
 Route::middleware(['auth', 'verified', 'role:student'])->group( function () {
-    Route::get('/dashboard', [TaskController::class, 'indexStudent'])
+    Route::get('/dashboard-student', [TaskController::class, 'indexStudent'])
         ->name('student.dashboard');
 
     Route::get('/submission/{task_id}', [TaskController::class, 'taskSubmission'])
@@ -25,10 +25,12 @@ Route::middleware(['auth', 'verified', 'role:student'])->group( function () {
         ->name("student.assignment");
 });
 
-// Route::middleware(['auth', 'verified', 'role:teacher'])->group( function () {
-//     Route::get('/dashboard', [TaskController::class, 'indexTeacher'])
-//         ->name('teacher.dashboard');
-// });
+Route::middleware(['auth', 'verified', 'role:teacher'])->group( function () {
+    Route::get('/dashboard-teacher', [TaskController::class, 'indexTeacher'])
+        ->name('teacher.dashboard');
+    Route::get('/assignment', [TaskController::class, 'showTask'])
+        ->name("teacher.assignment");
+});
 
 
 require __DIR__.'/auth.php';

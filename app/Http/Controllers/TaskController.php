@@ -31,7 +31,7 @@ class TaskController extends Controller
         }
 
         $tasks_history = TaskSubmission::where('student_id', Auth::id())->limit(3)->get();
-        return view('dashboard', compact('tasks', 'tasks_history'));
+        return view('students.dashboard', compact('tasks', 'tasks_history'));
     }
 
     public function taskSubmission(Request $request, $id)
@@ -94,7 +94,7 @@ class TaskController extends Controller
         $user = Auth::user();
         $tasks = $user->tasks()->limit(5)->get();
         
-        return view('dashboard', compact('tasks'));
+        return view('teachers.dashboard', compact('tasks'));
     }
 
 }

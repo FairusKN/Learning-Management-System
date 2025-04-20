@@ -16,9 +16,9 @@ class RoleMiddleware
         }
 
         if (!Auth::user()->hasRole($role)) {
-            abort(403, 'unauthorized access.');
+            return $next($request);
         }
 
-        return $next($request);
+        abort(403, 'asdasdasdas access.');
     }
 }
