@@ -4,7 +4,7 @@
         <p class=" mb-2" style="color: rgb(217, 234, 253)">{{ $task->description }}</p>
         <p class=" mb-2" style="color : rgb(217, 234, 253)"><span class="font-semibold">Teacher:</span> {{ $task->teacher->name }}</p>
 
-        <form action="{{ route('tasksubmission.upload', $task->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6 mt-6">
+        <form action="{{ route('student.tasksubmission.upload', $task->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6 mt-6">
             @csrf
 
             <div>

@@ -1,3 +1,8 @@
+@auth
+    @php
+        $role = optional(auth()->user()->roles()->first())->name;
+    @endphp
+@endauth
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="no-scrollbar"> 
     <head>
@@ -18,7 +23,7 @@
         @livewireStyles
     </head>
      <body class="font-sans antialiased "> {{-- overflow-y-scroll no-scrollbar --}}
-        <div class="min-h-screen bg-gray-100 ">
+        <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
             {{-- @isset($header)
