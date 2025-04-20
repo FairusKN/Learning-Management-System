@@ -12,18 +12,21 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-
                     <x-nav-link 
                         :href="route($role . '.dashboard')" 
                         :active="request()->routeIs($role . '.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link 
-                        :href="route($role . '.assignment')" 
-                        :active="request()->routeIs($role . '.assignment')">
-                        {{ __('Assignment') }}
-                    </x-nav-link>
+                    @if ($role === 'student')
+                        <x-nav-link 
+                            :href="route('student.assignment')" 
+                            :active="request()->routeIs('student.assignment')">
+                            {{ __('Assignment') }}
+                        </x-nav-link>
+                    @elseif($role === 'teacher')
+                        help
+                    @endif                    
                 </div>
             </div>
 
