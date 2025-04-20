@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Classroom;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,9 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         
         $this->call([
+            LaratrustSeeder::class,
             ClassroomSeeder::class,
             UserSeeder::class,
-            LaratrustSeeder::class,
             TaskSeeder::class,
         ]);
         

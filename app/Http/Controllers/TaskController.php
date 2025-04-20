@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
 
     //Student Stuff
-    
+
     public function indexStudent(Request $request)
     {
         $user = Auth::user();
@@ -27,7 +27,7 @@ class TaskController extends Controller
                 ->limit(3)
                 ->get();
         } else {
-            $latestTasks = collect();
+            $tasks = collect();
         }
 
         $tasks_history = TaskSubmission::where('student_id', Auth::id())->limit(3)->get();
@@ -71,7 +71,7 @@ class TaskController extends Controller
         return redirect('/dashboard')->with("success", "File Uploaded.");
     }
 
-    function showTask(Request $request)
+    public function showTask(Request $request)
     {
         $user = Auth::user();
         $classroom = $user->classes()->first();
@@ -84,6 +84,17 @@ class TaskController extends Controller
 
         $tasks_history = TaskSubmission::where('student_id', Auth::id())->latest()->get();
         return view('students.assignment', compact('tasks', 'tasks_history'));
+    }
+
+
+    //Teacher Stuff
+
+    public function indexTeacher(Request $request)
+    {
+        $user = Auth::user();
+        $tasks = $user->tasks()->limit(5)->get();
+        
+        return view('dashboard', compact('tasks'));
     }
 
 }

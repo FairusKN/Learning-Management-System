@@ -8,8 +8,8 @@
     @auth
         @if(Auth::user()->hasRole('student'))
             <x-student.task_container :tasks="$tasks" :tasks_history="$tasks_history" />
-        @elseif(Auth::user()->hasRole('teacher'))
-            <x-teacher.dashboard />
+        {{-- @elseif(Auth::user()->hasRole('teacher'))
+            <x-teacher.dashboard /> --}}
         @endif
     @endauth
 </x-app-layout>

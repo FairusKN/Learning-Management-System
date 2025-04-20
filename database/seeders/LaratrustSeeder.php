@@ -13,7 +13,7 @@ class LaratrustSeeder extends Seeder
     {
         $rolesWithPermissions = [
             'admin' => ['manage users', 'grade assignments', 'submit assignments'],
-            'teacher' => ['grade assignments', 'submit assignments'],
+            'teacher' => ['grade assignments', 'make assignments'],
             'student' => ['submit assignments'],
         ];
 

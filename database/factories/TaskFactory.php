@@ -17,8 +17,7 @@ class TaskFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'description' => fake()->paragraph(),
-            'teacher_id' => User::inRandomOrder()->first()->hasRole('teacher')->id ?? User::factory()->create()->addRole('teacher')->id,
-            'resource_path' => 'uploads/' . Str::uuid() . '.pdf',
+            'teacher_id' =>  User::whereHas('roles', fn($q) => $q->where('name', 'teacher'))->inRandomOrder()->first()->id,            'resource_path' => 'uploads/' . Str::uuid() . '.pdf',
         ];
     }
 }

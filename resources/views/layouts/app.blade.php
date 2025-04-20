@@ -18,7 +18,7 @@
         @livewireStyles
     </head>
      <body class="font-sans antialiased "> {{-- overflow-y-scroll no-scrollbar --}}
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen bg-gray-100 ">
             @include('layouts.navigation')
 
             {{-- @isset($header)

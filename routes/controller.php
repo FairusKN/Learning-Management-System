@@ -17,8 +17,8 @@ Route::middleware(['auth', 'verified', 'role:student'])->group( function () {
         ->name("assignmentStudent");
 });
 
-Route::middleware(['auth', 'verified', 'role:teacher'])->group( function () {
-    Route::get('/dashboard', [TaskController::class, ''])
-        ->name('dashboard');
-});
+// Route::middleware(['auth', 'verified', 'role:teacher'])->group( function () {
+//     Route::get('/dashboard', [TaskController::class, 'indexTeacher'])
+//         ->name('dashboard');
+// });
 ?>
