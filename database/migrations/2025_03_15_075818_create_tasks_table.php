@@ -11,10 +11,10 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->unique()->after('id');
+            $table->string('slug')->unique();
             $table->text('description');
             $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade');
-            $table->string('resource_path');
+            $table->string('resource_path')->nullable();
             $table->timestamps();
         });
     }

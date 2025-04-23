@@ -1,8 +1,3 @@
-@auth
-    @php
-        $role = optional(auth()->user()->roles()->first())->name;
-    @endphp
-@endauth
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="no-scrollbar"> 
     <head>
@@ -15,14 +10,18 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <!-- ✅ Add Livewire styles -->
-        @livewireStyles
+
+        {{-- Push & Stacks wont work --}}
+        {{-- @stack('custom-css') --}}
+
+        {{-- @livewireStyles --}}
     </head>
-     <body class="font-sans antialiased "> {{-- overflow-y-scroll no-scrollbar --}}
+     <body class="font-sans antialiased "> 
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
@@ -39,8 +38,18 @@
                 {{ $slot }}
             </main>
         </div>
+        {{-- @livewireScripts --}}
 
-        <!-- ✅ Add Livewire scripts -->
-        @livewireScripts
-    </body>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
+            });
+        </script>
+
+        {{-- Push & Stacks wont work --}}
+        {{-- @stack('cdn')
+        @stack('custom-scripts') --}}
+     </body>
 </html>

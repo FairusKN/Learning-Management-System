@@ -1,3 +1,8 @@
+@auth
+    @php
+        $role = optional(auth()->user()->roles()->first())->name;
+    @endphp
+@endauth
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,11 +35,17 @@
 
                     {{-- Role Based Route --}}
 
-                    {{-- @if ($role === 'student')
-                        
-                    @elseif($role === 'teacher')
+                    @if ($role === 'teacher')
 
-                    @endif                     --}}
+                        <x-nav-link 
+                            :href="route('teacher.create_task')" 
+                            :active="request()->routeIs('teacher.create_task')">
+                            {{ __('Create Task') }}
+                        </x-nav-link>
+                        
+                    {{-- @elseif($role === 'student') --}}
+
+                    @endif                    
                     
                 </div>
             </div>

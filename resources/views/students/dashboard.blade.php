@@ -63,7 +63,7 @@
                                     @elseif($history->grade === 0)
                                         <span class="text-black"> Not Graded Yet</span>
                                     @else
-                                        <span class="text-red-600">Remedial</span>
+                                        <span class="text-red-600">Failed</span>
                                     @endif
 
                                 </p>
@@ -75,7 +75,5 @@
                 @endforelse
             </div>
         </section>
-
     </main>
-
 </x-app-layout>

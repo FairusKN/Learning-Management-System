@@ -23,6 +23,8 @@ Route::middleware(['auth', 'role:student'])->group( function () {
 });
 
 Route::middleware(['auth', 'role:teacher'])->group( function () {
+    Route::get('/create_task', [TaskController::class, "showCreateTask"])->name('teacher.create_task');
+    Route::post("store_task", [TaskController::class, "createTask"])->name("teacher.task_store");
 });
 
 
