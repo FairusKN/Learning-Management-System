@@ -25,4 +25,9 @@ class Task extends Model
     {
         return $this->hasMany(TaskSubmission::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';  // Make sure it's set to 'slug'
+    }
 }

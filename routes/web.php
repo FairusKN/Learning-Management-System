@@ -15,10 +15,10 @@ Route::get('/login', function() {
 
 Route::middleware(['auth', 'role:student'])->group( function () {
 
-    Route::get('/submission/{task_id}', [TaskController::class, 'taskSubmission'])
+    Route::get('/submission/{task:slug}', [TaskController::class, 'taskSubmission'])
         ->name('student.tasksubmission');
 
-    Route::post("/tasksubmission-upload/{task_id}", [TaskController::class, 'taskSubmissionUpload'])
+    Route::post("/tasksubmission-upload/{task:slug}", [TaskController::class, 'taskSubmissionUpload'])
         ->name("student.tasksubmission.upload");
 });
 

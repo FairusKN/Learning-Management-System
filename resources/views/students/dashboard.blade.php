@@ -29,7 +29,7 @@
                         </div>
                         <div class="mt-4 text-sm text-gray-700 space-y-1">
                             <p><strong>Teacher:</strong> {{ $task->teacher->name }}</p>
-                            <a href="{{ route('student.tasksubmission', $task->id ) }}" class="text-blue-600 hover:underline">📝 Submit</a>
+                            <a href="{{ route('student.tasksubmission', $task ) }}" class="text-blue-600 hover:underline">📝 Submit</a>
                             @if ($task->resource)
                                 <a href="{{ $task->resource }}" target="_blank" class="text-blue-600 hover:underline block">📎 Resource</a>
                             @endif

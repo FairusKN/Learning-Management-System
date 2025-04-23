@@ -59,16 +59,14 @@ class TaskController extends Controller
         return view('students.dashboard', compact('tasks', 'tasks_history'));
     }
 
-    public function taskSubmission(Request $request, $id)
+    public function taskSubmission(Request $request, $task_slug)
     {
-        $task = Task::find($id);
+        $task = Task::where('slug', $task_slug)->first();
         return view('students.submit_task', compact('task'));
     }
 
-    public function taskSubmissionUpload(Request $request, $task_id)
+    public function taskSubmissionUpload(Request $request, $task)
     {
-        $task = Task::findOrFail($task_id);
-
         $teacherFolder = Str::slug($task->teacher->name);
         $taskFolder = Str::slug($task->title);
         $studentFolder = Str::slug(Auth::user()->name);
@@ -87,7 +85,7 @@ class TaskController extends Controller
         );
 
         TaskSubmission::create([
-            "task_id" => $task_id,
+            "task_id" => $task->id,
             "student_id" => Auth::id(),
             "file_path" => $filepath,
             "grade" => 0,
