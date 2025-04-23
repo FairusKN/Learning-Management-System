@@ -42,7 +42,5 @@ class User extends Authenticatable implements LaratrustUser
         return [
             'password' => 'hashed',
         ];
-    }
-
-    
+    }    
 }

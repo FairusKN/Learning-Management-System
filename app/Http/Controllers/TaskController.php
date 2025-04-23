@@ -62,7 +62,14 @@ class TaskController extends Controller
     public function taskSubmission(Request $request, $task_slug)
     {
         $task = Task::where('slug', $task_slug)->first();
-        return view('students.submit_task', compact('task'));
+
+        // check wether student has upload a file, if yes abort 403, if not proceed
+
+        if (!TaskSubmission::where('student_id', Auth::id())->where('task_id', $task->id)->exists()) {
+            return view('students.submit_task', compact('task'));
+        }
+
+        abort(403, 'You already submitted this task');
     }
 
     public function taskSubmissionUpload(Request $request, $task)
