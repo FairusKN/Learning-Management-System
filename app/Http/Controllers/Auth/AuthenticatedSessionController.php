@@ -34,15 +34,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('filament.admin.pages.dashboard');
         }
 
-        // return redirect()->intended(route('dashboard', absolute: false));
-
-        if ($user->hasRole('teacher')) {
-            return redirect()->route('teacher.dashboard');
-        }
-    
-        if ($user->hasRole('student')) {
-            return redirect()->route('student.dashboard');
-        }
+        return redirect()->intended(route('dashboard', absolute: false));
     
         abort(403); // No valid role
     }

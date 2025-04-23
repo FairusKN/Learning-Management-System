@@ -11,6 +11,31 @@ use App\Models\TaskSubmission;
 
 class TaskController extends Controller
 {
+    //Route Controller
+
+    public function dashboardCaller(Request $request)
+    {
+        $user = Auth::user();
+
+        return match(true) {
+            $user->hasRole('student') => $this->indexStudent($request),
+            $user->hasRole('teacher') => $this->indexTeacher($request),
+            default => abort(403),
+        };
+    }
+
+    public function assignmentCaller(Request $request)
+    {
+        $user = Auth::user();
+
+        return match(true) {
+            $user->hasRole('student') => $this->showTaskStudent($request),
+            $user->hasRole('teacher') => $this->showTaskTeacher($request),
+            default => abort(403),
+        };
+    }
+
+    
 
     //Student Stuff
 
@@ -71,7 +96,7 @@ class TaskController extends Controller
         return redirect('/dashboard')->with("success", "File Uploaded.");
     }
 
-    public function showTask(Request $request)
+    public function showTaskStudent(Request $request)
     {
         $user = Auth::user();
         $classroom = $user->classes()->first();
@@ -97,4 +122,9 @@ class TaskController extends Controller
         return view('teachers.dashboard', compact('tasks'));
     }
 
+    public function showTaskTeacher(Request $request)
+    {
+        $tasks = Task::where('teacher_id', Auth::id())->latest()->get();
+        return view("teachers.task", compact("tasks"));
+    }
 }

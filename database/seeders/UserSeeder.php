@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Classroom;
 use App\Models\TaskSubmission;
@@ -48,6 +49,8 @@ class UserSeeder extends Seeder
         $testStudentUser->classes()->attach($classroom->id);
 
         $testTeacherUser->addRole('teacher');
+
+        Task::factory(13)->create(['teacher_id' => $testTeacherUser->id]);
 
         TaskSubmission::factory(2)->create(['student_id' => $testStudentUser->id]);
         TaskSubmission::factory(1)->create(['student_id' => $testStudentUser->id,"grade" => 30]);

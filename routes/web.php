@@ -11,24 +11,26 @@ Route::get('/login', function() {
     return view('auth.login');
 });
 
+// Role Based URL
+
 Route::middleware(['auth', 'role:student'])->group( function () {
-    Route::get('/dashboard-student', [TaskController::class, 'indexStudent'])
-        ->name('student.dashboard');
 
     Route::get('/submission/{task_id}', [TaskController::class, 'taskSubmission'])
         ->name('student.tasksubmission');
-    Route::post("/tasksubmissionupload/{task_id}", [TaskController::class, 'taskSubmissionUpload'])
-        ->name("student.tasksubmission.upload");
 
-    Route::get('/assignment-student', [TaskController::class, 'showTask'])
-        ->name("student.assignment");
+    Route::post("/tasksubmission-upload/{task_id}", [TaskController::class, 'taskSubmissionUpload'])
+        ->name("student.tasksubmission.upload");
 });
 
 Route::middleware(['auth', 'role:teacher'])->group( function () {
-    Route::get('/dashboard-teacher', [TaskController::class, 'indexTeacher'])
-        ->name('teacher.dashboard');
-    Route::get('/assignment-teacher', [TaskController::class, 'apaweh'])
-        ->name("teacher.assignment");
+});
+
+
+//Shared URL
+
+Route::middleware(['auth'])->group( function() {
+    Route::get('/dashboard', [TaskController::class, 'dashboardCaller'])->name('dashboard');
+    Route::get('/assignment', [TaskController::class, 'assignmentCaller'])->name('assignment');
 });
 
 require __DIR__.'/auth.php';
