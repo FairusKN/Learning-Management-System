@@ -25,7 +25,11 @@
                             {{ __('Assignment') }}
                         </x-nav-link>
                     @elseif($role === 'teacher')
-                        help
+                    <x-nav-link 
+                        :href="route('teacher.assignment')" 
+                        :active="request()->routeIs('teacher.assignment')">
+                        {{ __('Assignment') }}
+                    </x-nav-link>
                     @endif                    
                 </div>
             </div>

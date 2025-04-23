@@ -92,7 +92,7 @@ class TaskController extends Controller
     public function indexTeacher(Request $request)
     {
         $user = Auth::user();
-        $tasks = $user->tasks()->limit(5)->get();
+        $tasks = $user->tasks()->with('classes')->limit(5)->get();
         
         return view('teachers.dashboard', compact('tasks'));
     }

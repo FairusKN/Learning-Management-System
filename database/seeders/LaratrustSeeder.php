@@ -25,7 +25,7 @@ class LaratrustSeeder extends Seeder
                 $permission = Permission::firstOrCreate(['name' => $perm]);
                 $permissionIds[] = $permission->id;
             }
-        
+         
             $role->syncPermissions($permissionIds);
         }
     }

@@ -21,8 +21,8 @@ class TaskSubmissionFactory extends Factory
         return [
             'task_id' => Task::factory(),
             'student_id' => User::whereHas('roles', fn($q) => $q->where('name', 'student'))->inRandomOrder()->first()->id,
-            'file_path' => 'submissions/' . fake()->uuid() . '.pdf',
-            'grade' => fake()->randomElement([0, fake()->numberBetween(20,100)]),
+            'file_path' => 'submissions/' . fake()->uuid() . fake()->randomElement(['.pdf', '.docx', '.png', '.jpeg', '.pptx']),
+            'grade' => fake()->randomElement([0, fake()->numberBetween(50,100)]),
         ];
     }
 }

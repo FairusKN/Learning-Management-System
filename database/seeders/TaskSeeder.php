@@ -17,24 +17,15 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-        $tasks = Task::factory(10)->create();
         TaskSubmission::factory(10)->create();
+        $tasks = Task::all();
         $classrooms = Classroom::all();
 
         foreach ($tasks as $task) {
-            // Get 1-5 random classrooms (adjust the range as needed)
-            $classroomsToAssign = $classrooms->random(rand(1, 5));
-        
-            foreach ($classroomsToAssign as $classroom) {
-                DB::table('class_task')->insert([
-                    'task_id' => $task->id,
-                    'class_id' => $classroom->id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+            if ($task->classes()->count() === 0) {
+                $randomClassrooms = $classrooms->random(rand(1, $classrooms->count()))->pluck('id');
+                $task->classes()->attach($randomClassrooms);
             }
         }
     }
-
-    
 }
