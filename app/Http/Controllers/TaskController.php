@@ -8,6 +8,7 @@ use App\Models\Task;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TaskSubmission;
+use Storage;
 
 class TaskController extends Controller
 {
@@ -116,13 +117,22 @@ class TaskController extends Controller
         return view('students.assignment', compact('tasks', 'tasks_history'));
     }
 
+    public function getResource(Request $request, Task $task)
+    {
+        if(!$task->resource_path || !Storage::exists($task->resource_path)){
+            abort(403, "File not found");
+        }
+
+        return Storage::download($task->resource_path);
+    }
+
 
     //Teacher Stuff
 
     public function indexTeacher(Request $request)
     {
         $user = Auth::user();
-        $tasks = $user->tasks()->with('classes')->limit(5)->get();
+        $tasks = $user->tasks()->with('classes')->latest()->limit(5)->get();
         
         return view('teachers.dashboard', compact('tasks'));
     }
@@ -159,7 +169,7 @@ class TaskController extends Controller
             $timestamp = now()->format('Ymd_His'); 
             $filename = $timestamp . '_' . $originalfileName;  
             $filepath = $request->file('file')->storeAs(
-                "resources/teacher_{$teacherFolder}/", $filename
+                "resources/teacher_{$teacherFolder}", $filename
             );
         }
         
@@ -170,16 +180,21 @@ class TaskController extends Controller
         $description = $request->input('description');
         $classes = $request->input('states');
 
+        //dd($filepath);
+
         $task = Task::create([
             "title" => $title,
             "slug" => $slug,
             "description" => $description,
             "teacher_id" => $user->id,
-            "resource_path" => $filepath ? $filepath : null,
+            "resource_path" => $filepath ?: null,
         ]);
 
         $task->classes()->attach($classes);
 
-        return redirect('/dashboard')->with("success", "File Uploaded.");
+        return redirect('/dashboard')->with("success", "Task created.");
     }
+
+
+
 }

@@ -20,6 +20,8 @@ Route::middleware(['auth', 'role:student'])->group( function () {
 
     Route::post("/tasksubmission-upload/{task:slug}", [TaskController::class, 'taskSubmissionUpload'])
         ->name("student.tasksubmission.upload");
+
+    Route::get('/download_resource/{task:slug}', [TaskController::class, 'getResource'])->name("student.getResource");
 });
 
 Route::middleware(['auth', 'role:teacher'])->group( function () {

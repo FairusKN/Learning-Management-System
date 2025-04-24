@@ -20,7 +20,7 @@ class TaskFactory extends Factory
             'slug' => Str::slug($title),
             'description' => fake()->paragraph(),
             'teacher_id' =>  User::whereHas('roles', fn($q) => $q->where('name', 'teacher'))->inRandomOrder()->first()->id,            
-            'resource_path' => 'uploads/' . Str::uuid() . '.pdf',
+            'resource_path' => 'resources/' . Str::uuid() . '.pdf',
         ];
     }
 }
