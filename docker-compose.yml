@@ -22,9 +22,9 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: user
-      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: db_lms
+      MYSQL_USER: fairus
+      MYSQL_PASSWORD: fairus
     volumes:
       - dbdata:/var/lib/mysql
     networks:

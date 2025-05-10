@@ -20,9 +20,4 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
-
-COPY . .
-
-RUN composer install && npm install && npm run build
-
 CMD ["php-fpm"]
