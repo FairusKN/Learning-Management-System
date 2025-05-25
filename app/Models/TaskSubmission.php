@@ -9,7 +9,7 @@ class TaskSubmission extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['task_id', 'student_id', 'file_path', 'grade', 'status'];
+    protected $fillable = ['task_id', 'student_id', 'file_path', 'grade'];
 
     public function task()
     {
@@ -19,5 +19,10 @@ class TaskSubmission extends Model
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'student_id';
     }
 }

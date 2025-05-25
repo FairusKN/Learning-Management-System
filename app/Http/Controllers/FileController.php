@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\PhpWord;
+use Illuminate\Support\Facades\Log;
 
 class FileController extends Controller
 {
@@ -17,15 +18,32 @@ class FileController extends Controller
             mkdir($outputFolderPath, 0755, true);
         }
 
-        $escapedInput = escapeshellarg($inputTempPath);
+        // Move to persistent tmp folder
+        $persistentTempDir = storage_path('app/tmp');
+        if (!file_exists($persistentTempDir)) {
+            mkdir($persistentTempDir, 0755, true);
+        }
+
+        $filename = pathinfo($inputTempPath, PATHINFO_BASENAME);
+        $persistentTempPath = $persistentTempDir . '/' . $filename;
+        copy($inputTempPath, $persistentTempPath);
+
+        $escapedInput = escapeshellarg($persistentTempPath);
         $escapedOutputDir = escapeshellarg($outputFolderPath);
 
-        $cmd = "libreoffice --headless --convert-to pdf $escapedInput --outdir $escapedOutputDir";
+        // ✅ Corrected syntax
+        $cmd = "libreoffice --headless --convert-to pdf:writer_pdf_Export $escapedInput --outdir $escapedOutputDir";
 
-        exec($cmd, $output, $return_var);
+        exec($cmd . ' 2>&1', $output, $return_var);
 
         if ($return_var !== 0) {
-            throw new \Exception('LibreOffice conversion failed.');
+            Log::error("LibreOffice conversion failed", [
+                'command' => $cmd,
+                'output' => $output,
+                'return_var' => $return_var,
+            ]);
+            throw new \Exception('LibreOffice conversion failed. Check logs.');
         }
     }
+
 }

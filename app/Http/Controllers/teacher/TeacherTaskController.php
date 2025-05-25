@@ -45,8 +45,6 @@ class TeacherTaskController extends Controller
             "states.*" => 'string',
         ]);
 
-        dd($request->file('file')->extension());
-
         // Rename File to date_filename
         if ($request->file('file')) {
             $originalfileName = $request->file('file')->getClientOriginalName();

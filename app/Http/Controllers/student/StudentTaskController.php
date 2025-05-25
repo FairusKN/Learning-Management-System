@@ -7,7 +7,9 @@ use App\Models\Task;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TaskSubmission;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\FileController;
 
 class StudentTaskController extends Controller
@@ -17,7 +19,7 @@ class StudentTaskController extends Controller
         $user = Auth::user();
         $classroom = $user->classes()->first();
         $submittedTaskIds = $user->submissions()->pluck('task_id');
-        
+
         if ($classroom) {
             $tasks = $classroom->tasks()
                 ->whereNotIn('tasks.id', $submittedTaskIds)
@@ -36,14 +38,18 @@ class StudentTaskController extends Controller
     {
         $user = Auth::user();
         $classroom = $user->classes()->first();
-        
+
+        $submittedTaskIds = $user->submissions()->pluck('task_id');
+
         if ($classroom) {
             $tasks = $classroom->tasks()
+                ->whereNotIn('tasks.id', $submittedTaskIds)
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
 
         $tasks_history = TaskSubmission::where('student_id', Auth::id())->latest()->get();
+
         return view('students.assignment', compact('tasks', 'tasks_history'));
     }
 
@@ -69,7 +75,7 @@ class StudentTaskController extends Controller
         $studentFolder = Str::slug(Auth::user()->name);
         $originalName = $request->file('file')->getClientOriginalName();
         $timestamp = now()->format('Ymd_His');
-        $filename = $timestamp . '_' . $originalName;
+        $filename = $timestamp . '_' . Str::replace(" ", "_", $originalName);
 
         $request->validate([
             "file" => "required|file|mimes:png,jpg,jpeg,pdf,doc,docx,xls,xlsx,ppt,pptx,odt,ods,odp|max:10240"
@@ -79,13 +85,14 @@ class StudentTaskController extends Controller
         $can_convert_from = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp'];
 
         $storageFolder = "submission/teacher_{$teacherFolder}/task_{$taskFolder}/student_{$studentFolder}";
-        $storagePath = storage_path('app/' . $storageFolder);
-
-        if (!file_exists($storagePath)) {
-            mkdir($storagePath, 0755, true);
-        }
+        $storagePath = storage_path('app/public/' . $storageFolder);
 
         if (in_array($file_extension, $can_convert_from)) {
+
+            if (!file_exists($storagePath)) {
+                mkdir($storagePath, 0755, true);
+            }
+
             // Save temp file
             $tempPath = $request->file('file')->getRealPath();
 
@@ -96,8 +103,15 @@ class StudentTaskController extends Controller
             $filepath = $storageFolder . '/' . $convertedFileName;
         } else {
             // Directly store the file without converting
-            $filepath = $request->file('file')->storeAs($storageFolder, $filename);
+            $filepath = $request->file('file')->storeAs($storageFolder, $filename, 'public');
         }
+
+        Log::info("Stored file", [
+            'path' => $filepath,
+            'full_path' => storage_path("app/public/{$filepath}"),
+            'exists' => Storage::disk('public')->exists($filepath),
+        ]);
+
 
         TaskSubmission::create([
             "task_id" => $task->id,

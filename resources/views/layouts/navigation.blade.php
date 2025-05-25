@@ -43,7 +43,13 @@
                             {{ __('Create Task') }}
                         </x-nav-link>
                         
-                    {{-- @elseif($role === 'student') --}}
+                    @elseif($role === 'student') 
+
+                        <x-nav-link
+                            :href="route('receipt.preview')"
+                            :active="request()->routeIs('receipt.preview')">
+                            {{ __('Grade Report')}}
+                        </x-nav-link>
 
                     @endif                    
                     

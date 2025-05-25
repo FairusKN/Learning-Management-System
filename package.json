@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "flowbite": "^3.1.2",
-        "tailwind-scrollbar-hide": "^2.0.0"
+        "tailwind-scrollbar-hide": "^2.0.0",
+        "viewerjs": "^1.11.7"
     }
 }

@@ -27,11 +27,17 @@
                             <p class="text-gray-600 mt-2 text-base">{{ $task->description }}</p>
                         </div>
                         <div class="mt-6 text-sm text-gray-700 space-y-1">
-                            <p><strong>Class:</strong> {{ $task->classes->first()?->name ?? "No Class" }}</p>
-                            {{-- <a href="{{ route('student.tasksubmission', $task->id ) }}" class="text-blue-600 hover:underline">📝 Submit</a>
-                            @if ($task->resource)
-                                <a href="{{ $task->resource }}" target="_blank" class="text-blue-600 hover:underline block">📎 Resource</a>
-                            @endif --}}
+                            <p><strong>Class:</strong>
+                            @foreach ($task->classes as $class)
+                                {{ $class->name }}
+                                @if (!$loop->last)
+                                    , 
+                                @endif
+                            @endforeach
+                            </p>
+                            <div class="mt-20">
+                                <a href="{{ route('teacher.class_to_grade', $task) }}" class="text-blue-600 hover:underline">📝 Grade</a>
+                            </div>
                         </div>
                     </div>
                 @empty
