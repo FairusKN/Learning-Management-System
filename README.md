@@ -29,8 +29,8 @@ A lightweight and cross-platform online school system designed to simplify how t
 
 ## 🚧 Technologies Used
 
-- **Backend:** *(Laravel)*
-- **Frontend:** *(Tailwind)*
+- **Backend:** Laravel
+- **Frontend:** Tailwind
 - **File Conversion:** LibreOffice CLI
 
 ## 📦 Installation
