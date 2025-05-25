@@ -7,5 +7,48 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About This Project
-Need libreoffice --headless
+# 📚 Learning Management System (LMS)
+
+A lightweight and cross-platform online school system designed to simplify how teachers manage tasks and how students submit and track their assignments.
+
+## ✨ Features
+
+- 📝 **Teacher Dashboard**
+  - Create, assign, and grade student tasks
+  - View and manage submissions
+
+- 🎓 **Student Portal**
+  - Submit assignments with file uploads
+  - Track submission status and grades
+
+- 🧠 **Cross-Platform Compatibility**
+  - Works on Linux, Windows, and macOS
+
+- 📄 **Automatic Office to PDF Conversion**
+  - Uses LibreOffice to convert `.doc`, `.docx`, `.odt`, and similar formats to `.pdf` for standardized submissions and grading
+
+## 🚧 Technologies Used
+
+- **Backend:** *(Laravel)*
+- **Frontend:** *(Tailwind)*
+- **File Conversion:** LibreOffice CLI
+
+## 📦 Installation
+
+> Requirements:
+> - Composer
+> - PHP 8.4
+> - NPM
+> - LibreOffice installed and added to `PATH`
+
+```bash
+# Clone the repo
+git clone https://github.com/FairusKN/lms.git
+cd lms
+
+# Install dependencies
+composer install
+npm install && run build
+
+# Run the application
+composer run build
